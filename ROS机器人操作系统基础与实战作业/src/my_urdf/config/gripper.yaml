@@ -1,0 +1,5 @@
+type: "position_controllers/JointGroupPositionController"
+joints:
+ - link2_to_hand_base
+ - left_gripper_joint
+ - right_gripper_joint

@@ -1,0 +1,30 @@
+// 控制关节运动
+rostopic pub /r2d2_link1_controller/command std_msgs/Float64 "data: -0.707"
+rostopic pub /r2d2_link2_controller/command std_msgs/Float64 "data: 0.5"
+
+// 控制夹爪旋转
+rostopic pub  /r2d2_gripper_controller/command std_msgs/Float64MultiArray "layout:
+  dim:
+  - label: ''
+    size: 3
+    stride: 1
+  data_offset: 0
+data: [1.7, 0.0, 0.0]"
+
+// 控制夹爪开启
+rostopic pub  /r2d2_gripper_controller/command std_msgs/Float64MultiArray "layout:
+  dim:
+  - label: ''
+    size: 3
+    stride: 1
+  data_offset: 0
+data: [0, 0.5, 0.5]"
+
+// 控制夹爪关闭
+rostopic pub  /r2d2_gripper_controller/command std_msgs/Float64MultiArray "layout:
+  dim:
+  - label: ''
+    size: 3
+    stride: 1
+  data_offset: 0
+data: [0, 0, 0]"

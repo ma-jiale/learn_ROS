@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<robot name="myfirst">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.8 0.1 0.2"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.8 0.1 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.042" ixy="0.0" ixz="0.0" iyy="0.57" iyz="0.0" izz="0.54"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_link1" type="continuous">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.3 -0.1 0.0"/>
+    <limit effort="30" velocity="1.0"/>
+  </joint>
+
+  <link name="link1">
+    <visual>
+      <geometry>
+        <box size="0.8 0.1 0.2"/>
+      </geometry>
+      <origin xyz="0.3 0.0 0.0"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.8 0.1 0.2"/>
+      </geometry>
+      <origin xyz="0.3 0.0 0.0"/>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.042" ixy="0.0" ixz="0.0" iyy="0.57" iyz="0.0" izz="0.54"/>
+    </inertial>
+  </link>
+
+  <transmission name="link1_swivel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="$link1_swivel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="base_to_link1">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <joint name="link1_to_link2" type="continuous">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.7 0.1 0.0"/>
+    <limit effort="30" velocity="1.0"/>
+  </joint>
+
+  <link name="link2">
+    <visual>
+      <geometry>
+        <box size="0.8 0.1 0.2"/>
+      </geometry>
+      <origin xyz="0.3 0.0 0.0"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.8 0.1 0.2"/>
+      </geometry>
+      <origin xyz="0.3 0.0 0.0"/>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.042" ixy="0.0" ixz="0.0" iyy="0.57" iyz="0.0" izz="0.54"/>
+    </inertial>
+  </link>
+
+  <transmission name="link2_swivel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="$link2_swivel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="link1_to_link2">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <joint name="link2_to_hand_base" type="continuous">
+    <parent link="link2"/>
+    <child link="hand_base"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.7 -0.1 0.0"/>
+    <limit effort="30" velocity="1.0"/>
+  </joint>
+
+  <link name="hand_base">
+    <visual>
+      <geometry>
+        <box size="0.2 0.1 0.2"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2 0.1 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.008" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.008"/>
+    </inertial>
+  </link>
+
+  <transmission name="hand_base_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="$hand_base__motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="link2_to_hand_base">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <joint name="left_gripper_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0.1 0.01 0"/>
+    <parent link="hand_base"/>
+    <child link="left_gripper"/>
+  </joint>
+
+  <link name="left_gripper">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+      </geometry>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <transmission name="left_gripper_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="left_gripper_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="left_gripper_joint">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <joint name="left_tip_joint" type="fixed">
+    <parent link="left_gripper"/>
+    <child link="left_tip"/>
+  </joint>
+
+  <link name="left_tip">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0.09137 0.00495 0"/>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
+      </geometry>
+      <origin rpy="0.0 0 0" xyz="0.09137 0.00495 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="right_gripper_joint" type="revolute">
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0.1 -0.01 0"/>
+    <parent link="hand_base"/>
+    <child link="right_gripper"/>
+  </joint>
+
+  <link name="right_gripper">
+    <visual>
+      <origin rpy="-3.1415 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger.dae"/>
+      </geometry>
+      <origin rpy="-3.1415 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <transmission name="right_gripper_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="right_gripper_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="right_gripper_joint">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <joint name="right_tip_joint" type="fixed">
+    <parent link="right_gripper"/>
+    <child link="right_tip"/>
+  </joint>
+
+  <link name="right_tip">
+    <visual>
+      <origin rpy="-3.1415 0 0" xyz="0.09137 0.00495 0"/>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://urdf_tutorial/meshes/l_finger_tip.dae"/>
+      </geometry>
+      <origin rpy="-3.1415 0 0" xyz="0.09137 0.00495 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+    <!-- This block connects the head_swivel joint to an actuator (motor), which informs both
+  simulation and visualization of the robot -->
+
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+</robot>

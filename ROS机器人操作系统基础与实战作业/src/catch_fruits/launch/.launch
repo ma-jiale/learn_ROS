@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="catch_fruits" type="send_position.py" name="send_position_node" output="screen">
+  </node>
+</launch>

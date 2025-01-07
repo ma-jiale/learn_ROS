@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="joy" type="joy_node" name="joy_node">
+        <param name="_dev" value="/dev/input/js0"/>
+    </node>
+    <node pkg="use_turtlebot3" type="use_joy_ctr_turtlebot3.py" name="joy_turtlebot3" output="screen"/>
+</launch>

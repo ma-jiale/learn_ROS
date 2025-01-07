@@ -1,0 +1,11 @@
+打开仿真环境1
+export TURTLEBOT3_MODEL=waffle_pi
+roslaunch turtlebot3_gazebo turtlebot3_house.launch
+打开仿真环境2
+export TURTLEBOT3_MODEL=waffle
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
+
+
+保存地图
+rosrun map_server map_saver -f /home/majiale/ROS_hmk_ws/src/use_turtlebot3/maps/turtlebot_map
+

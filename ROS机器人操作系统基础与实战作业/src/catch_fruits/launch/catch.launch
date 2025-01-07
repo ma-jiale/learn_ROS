@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="catch_fruits" type="catch.py" name="catch_node" output="screen">
+  </node>
+</launch>

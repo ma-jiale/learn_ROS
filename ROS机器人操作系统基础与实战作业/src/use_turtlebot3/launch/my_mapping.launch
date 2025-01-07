@@ -1,0 +1,19 @@
+<launch>
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+        <arg name="model" value="$(arg model)"/>
+    </include>
+
+
+    <!-- 手柄控制小车移动 -->
+    <node pkg="joy" type="joy_node" name="joy_node">
+        <param name="_dev" value="/dev/input/js0"/>
+    </node>
+    <node pkg="use_turtlebot3" type="use_joy_ctr_turtlebot3.py" name="joy_turtlebot3" output="screen"/>
+
+    <!-- 启动 gmapping 的 SLAM 节点 -->
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping" args="scan:=scan"/>    
+    <!-- 启动rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot3_gazebo)/rviz/turtlebot3_gazebo_model.rviz"/>
+</launch>

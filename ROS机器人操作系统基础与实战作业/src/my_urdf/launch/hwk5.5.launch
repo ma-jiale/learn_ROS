@@ -1,0 +1,33 @@
+<launch>
+  <arg name="model" default="$(find my_urdf)/urdf/myRobot.urdf"/>
+  <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+
+  <include file="$(find my_urdf)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+  <rosparam command="load"
+            file="$(find my_urdf)/config/joints.yaml"
+            ns="r2d2_joint_state_controller" />
+  <rosparam command="load"
+            file="$(find my_urdf)/config/gripper.yaml"
+            ns="r2d2_gripper_controller" />
+  <rosparam command="load"
+            file="$(find my_urdf)/config/link1.yaml"
+            ns="r2d2_link1_controller" />
+  <rosparam command="load"
+            file="$(find my_urdf)/config/link2.yaml"
+            ns="r2d2_link2_controller" />
+
+  <node name="r2d2_controller_spawner" pkg="controller_manager" type="spawner"
+    args="r2d2_joint_state_controller
+          r2d2_gripper_controller
+          r2d2_link1_controller
+          r2d2_link2_controller
+
+          --shutdown-timeout 3"/>
+
+</launch>
