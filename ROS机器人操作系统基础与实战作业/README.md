@@ -296,4 +296,4 @@ move base算法可以实现实时路径规划和导航，如果遇到地图中�
 - catch.launch文件用来订阅fruits_position话题获取水果的位置并抓取放到指定位置
 - tag.py节点用来标定网格的位置并存储
 
-实现效果视频可以参看：
+实现效果视频可以参看：[抓个橘子：基于ROS和OpenCV的JAKA机械臂抓取任务设计](https://www.bilibili.com/video/BV1WZrUYXExB/?vd_source=bf08880c4c4d8fdcca4d17ed2ee821fe)
