@@ -242,6 +242,8 @@ roslaunch turtlebot3_gazebo turtlebot3_world.launch
 
 运行my_mapping.launch效果如下
 
+![turtlebot2](images/turtlebot2.gif)
+
 运行rosrun map_server map_saver -f <保存路径 >命令保存地图
 
 ![image-20250107144300655](images/image-20250107144300655.png)
