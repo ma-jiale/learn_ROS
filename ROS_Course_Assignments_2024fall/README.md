@@ -270,6 +270,8 @@ roslaunch turtlebot3_gazebo turtlebot3_world.launch
 
 实现机器人的实时路径规划和导航
 
+![movebase_2](images/movebase_2.gif)
+
 move base算法可以实现实时路径规划和导航，如果遇到地图中没有的障碍物会重新规划路线并导航
 
 ![movebase_3](images/movebase_3.gif)
